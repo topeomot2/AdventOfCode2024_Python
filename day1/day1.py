@@ -1,3 +1,5 @@
+from collections import Counter
+
 def get_lists():
     list1 = []
     list2 = []
@@ -15,18 +17,11 @@ def get_lists():
 
 
 def total_distance(list1, list2):
-    total = 0
-    for i in range(len(list1)):
-        total += abs(list1[i] - list2[i])
-    return total
+    total_diff = [abs(a - b) for a,b in zip(list1,list2)]
+    return sum(total_diff)
 
 def similarity_score(list1, list2):
-    hash_map2 = {}
-    for value in list2:
-        if hash_map2.get(value) is None:
-           hash_map2[value] = 0
-
-        hash_map2[value] = hash_map2[value] + 1
+    hash_map2 = Counter(list2)
 
     total_score = 0
     for value in list1:
@@ -38,4 +33,4 @@ def similarity_score(list1, list2):
 
 [listA, listB ] = get_lists()
 print(total_distance(listA, listB)) # 2580760
-print(similarity_score(listA,listB))
+print(similarity_score(listA,listB)) #25358365
